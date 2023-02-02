@@ -10,6 +10,7 @@ use App\Http\Controllers\front\PaymentController;
 use App\Http\Controllers\front\CurrencyController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,58 +24,61 @@ use App\Http\Controllers\Dashboard\CategoryController;
 */
 
 //Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth'])->name('dashboard');
-Route::middleware(['auth', 'CheckUserType:admin,super_admin'])->group(
-    function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name(
-            'dashboard'
-        );
-        Route::resource('categories', CategoryController::class);
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name(
+        'dashboard'
+    );
 
-        Route::get(
-            '/categories/trash',
-            'App\Http\Controllers\Dashboard\CategoryController@trash'
-        )->name('dashboard.categories.trash');
+    Route::resource('categories', CategoryController::class);
 
-        Route::put('categories/{category}/restore', [
-            CategoryController::class,
-            'restore',
-        ])->name('dashboard.categories.restore');
+    Route::get(
+        '/categories/trash',
+        'App\Http\Controllers\Dashboard\CategoryController@trash'
+    )->name('dashboard.categories.trash');
 
-        Route::delete('categories/{category}/force-delete', [
-            CategoryController::class,
-            'forceDelete',
-        ])->name('dashboard.categories.forceDelete');
+    Route::put('categories/{category}/restore', [
+        CategoryController::class,
+        'restore',
+    ])->name('dashboard.categories.restore');
 
-        Route::resource('products', ProductController::class);
-        Route::get(
-            '/profile',
-            'App\Http\Controllers\Dashboard\ProfileController@edit'
-        )->name('dashboard.profile.edit');
+    Route::delete('categories/{category}/force-delete', [
+        CategoryController::class,
+        'forceDelete',
+    ])->name('dashboard.categories.forceDelete');
 
-        Route::patch(
-            'profile',
-            'App\Http\Controllers\Dashboard\ProfileController@update'
-        )->name('dashboard.profile.update');
+    Route::resource('products', ProductController::class);
+    ///////////role
 
-        Route::post('currency', [CurrencyController::class, 'store'])->name(
-            'currency.store'
-        );
+    Route::resource('roles', RoleController::class);
+    ////////////
+    Route::get(
+        '/profile',
+        'App\Http\Controllers\Dashboard\ProfileController@edit'
+    )->name('dashboard.profile.edit');
 
-        Route::get('orders/{order}/pay', [
-            PaymentController::class,
-            'create',
-        ])->name('orders.payments.create');
+    Route::patch(
+        'profile',
+        'App\Http\Controllers\Dashboard\ProfileController@update'
+    )->name('dashboard.profile.update');
 
-        Route::post('orders/{order}/stripe/payment', [
-            PaymentController::class,
-            'createStripePaymentIntent',
-        ])->name('stripe.paymentIntent.create');
+    Route::post('currency', [CurrencyController::class, 'store'])->name(
+        'currency.store'
+    );
 
-        Route::get('orders/{order}/stripe/payment', [
-            PaymentController::class,
-            'confirm',
-        ])->name('stripe.return');
-    }
-);
+    Route::get('orders/{order}/pay', [
+        PaymentController::class,
+        'create',
+    ])->name('orders.payments.create');
 
-require __DIR__ . '/auth.php';
+    Route::post('orders/{order}/stripe/payment', [
+        PaymentController::class,
+        'createStripePaymentIntent',
+    ])->name('stripe.paymentIntent.create');
+
+    Route::get('orders/{order}/stripe/payment', [
+        PaymentController::class,
+        'confirm',
+    ])->name('stripe.return');
+});
+
+// require __DIR__ . '/auth.php';

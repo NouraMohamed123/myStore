@@ -11,7 +11,6 @@ class OrderController extends Controller
 {
     public function show(Order $order)
     {
-        return 55;
         $delevery = $order
             ->delevery()
             ->select([
@@ -25,7 +24,7 @@ class OrderController extends Controller
 
         return view('front.orders.show', [
             'order' => $order,
-            'delevery' => $delevery,
+            'delivery' => $delevery,
         ]);
     }
 }

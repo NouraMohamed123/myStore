@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Profile;
+use App\Concerns\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,29 +12,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone_number'
-    ];
+    protected $fillable = ['name', 'email', 'password', 'phone_number'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * The attributes that should be cast.
@@ -44,7 +37,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile(){
-        return $this->hasOne(Profile::class,'user_id','id')->withDefault();
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'id')->withDefault();
     }
 }

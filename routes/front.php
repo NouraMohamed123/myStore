@@ -28,8 +28,11 @@ Route::get('/products/{product::slug}', [
     ProductController::class,
     'show',
 ])->name('products.show');
+
 Route::resource('cart', CartController::class);
+
 Route::get('checkout', [CheckOutController::class, 'create'])->name('checkout');
+
 Route::post('checkout', [CheckOutController::class, 'store']);
 
 Route::get('/orders/{order}', [OrderController::class, 'show']);

@@ -57,8 +57,10 @@
                             class="btn btn-sm btn-outline-success">Edit</a>
 
                     </td>
-                    <td>
-
+                  
+            @can('Gtegories.delete')
+                  <td>
+                    
                         <form action="{{ route('categories.destroy', $category->id) }}" method="post">
                             @csrf
                             <!-- Form Method Spoofing -->
@@ -68,6 +70,7 @@
                         </form>
 
                     </td>
+            @endcan
                 </tr>
             @empty
                 <tr>

@@ -1,6 +1,6 @@
 <x-front-layout title="Order Details">
 
-    <x-slot:breadcrumb>
+
         <div class="breadcrumbs">
             <div class="container">
                 <div class="row align-items-center">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </x-slot:breadcrumb>
+  
 
     <section class="checkout-wrapper section">
         <div class="container">
