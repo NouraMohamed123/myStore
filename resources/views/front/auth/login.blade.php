@@ -14,14 +14,16 @@
                             </div>
                             <div class="social-login">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn facebook-btn"
-                                            href="{{ route('auth.socilaite.redirect', 'facebook') }}"><i class="lni lni-facebook-filled"></i> Facebook
+                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn facebook-btn">
+                                            {{-- href="{{ route('auth.socilaite.redirect', 'facebook') }}"> --}}
+                                            <i class="lni lni-facebook-filled"></i> Facebook
                                             login</a></div>
                                     <div class="col-lg-4 col-md-4 col-12"><a class="btn twitter-btn"
                                             href="javascript:void(0)"><i class="lni lni-twitter-original"></i> Twitter
                                             login</a></div>
-                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn google-btn"
-                                            href="{{ route('auth.socilaite.redirect', 'google') }}"><i class="lni lni-google"></i> Google login</a>
+                                    <div class="col-lg-4 col-md-4 col-12"><a class="btn google-btn">
+                                            {{-- href="{{ route('auth.socilaite.redirect', 'google') }}"> --}}
+                                            <i class="lni lni-google"></i> Google login</a>
                                     </div>
                                 </div>
                             </div>
@@ -33,10 +35,12 @@
                                 {{ $errors->first(config('fortify.username')) }}
                             </div>
                             @endif
+                            
                             <div class="form-group input-group">
                                 <label for="reg-fn">Email</label>
                                 <input class="form-control" type="text" name="{{ config('fortify.username') }}" id="reg-email" required>
                             </div>
+
                             <div class="form-group input-group">
                                 <label for="reg-fn">Password</label>
                                 <input class="form-control" type="password" name="password" id="reg-pass" required>
